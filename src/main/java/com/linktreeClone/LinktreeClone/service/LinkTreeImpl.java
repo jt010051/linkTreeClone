@@ -20,7 +20,8 @@ public class LinkTreeImpl implements LinkService {
 private final LinkRepository repository;
 	@Override
 	public Link create(Link link) {
-		log.info("Saving new url{}:", link.getURL(), link.getID());
+		
+		log.info("Saving new url{}:", link.getURL(), link.getURL());
 
 
 		return repository.save(link);

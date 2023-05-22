@@ -28,7 +28,7 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
 
-    private String Name;
+    private String name;
     private String URL;
     
     
