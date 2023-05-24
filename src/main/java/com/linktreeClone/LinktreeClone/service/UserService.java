@@ -14,7 +14,7 @@ public interface UserService {
 	LinkTreeUser getUser(String username);
     List<LinkTreeUser>getUsers();
     Role saveRole(Role role);
-	void addLinkToUser(String username, Link link);
+    LinkTreeUser addLinkToUser(String username, String linkName);
     Link saveLink(Link link);
 
     List<Link> getLinksByUser(String username);

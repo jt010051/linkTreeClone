@@ -13,7 +13,7 @@ import com.linktreeClone.LinktreeClone.domain.Role;
 
 public interface LinkRepository extends JpaRepository<Link, Long> {
 
-	Link findByName(Link link);
+	Link findByName(String linkName);
 
 	
 

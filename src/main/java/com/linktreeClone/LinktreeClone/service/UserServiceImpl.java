@@ -95,19 +95,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return user.getLinks();
 	}
 
-	@Override
-	public void addLinkToUser(String username, Link link) {
-		log.info("Adding link {} to user {}", link, username);
-        LinkTreeUser user = userRepo.findByusername(username);
-        Link l = linkRepo.findByName(link);
-        user.getLinks().add(l);
-		
-	}
 
 	@Override
 	public Link saveLink(Link link) {
         log.info("Saving new link {} to the database", link.getName());
         return linkRepo.save(link);
+	}
+
+	@Override
+	public LinkTreeUser addLinkToUser(String username, String linkName) {
+    	LinkTreeUser user = userRepo.findByusername(username);
+    	
+    	Link link = linkRepo.findByName(linkName);
+     user.getLinks().add(link);	
+     return user;
 	}
 
 

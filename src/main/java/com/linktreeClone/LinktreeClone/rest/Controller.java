@@ -40,19 +40,12 @@ private final LinkService linkServe;
 	}
 	
 	@PostMapping("/newLink")
-   public Link create (@RequestBody Link link) {
-		
-		
-		return linkServe.create(link);
+   public LinkTreeUser createLink (@RequestBody Link link, @RequestBody String username) {
+        link = linkServe.create(link);
 
+return userService.addLinkToUser(username, link.getName());
 	}
-	@PostMapping("/linkToUser")
-	   public void addToUsername (@RequestBody String username, Link link) {
-			userService.addLinkToUser(username, link);
-			
-			
-
-		}
+	
 	
 	@GetMapping("/allLinks")
 	public List<Link> getAllUrls( HttpServletResponse response) {

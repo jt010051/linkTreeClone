@@ -21,7 +21,7 @@ private final LinkRepository repository;
 	@Override
 	public Link create(Link link) {
 		
-		log.info("Saving new url{}:", link.getURL(), link.getURL());
+		log.info("Saving new url{}: ", link.getURL(), link.getURL());
 
 
 		return repository.save(link);

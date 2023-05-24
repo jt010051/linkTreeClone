@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
 import useAuth from '../hooks/useAuth.js';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-// import { booleanContext } from '../Context';
+import { booleanContext } from '../Context';
 import { refreshContext } from '../Context';
 import axios from '../api/axios';
 
@@ -12,9 +12,9 @@ const LOGIN_URL = '/api/auth/login';
 const Login = () => {
     const { auth, setAuth } = useAuth();
 const {refreshToken, setRefreshToken} = useContext(refreshContext)
-    // const navigate = useNavigate();
-    // const location = useLocation();
-    // const from = location.state?.from?.pathname || "/admin";
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/profile";
 
     // const userRef = useRef();
     // const errRef = useRef();
@@ -22,7 +22,7 @@ const {refreshToken, setRefreshToken} = useContext(refreshContext)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
-// const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
+const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
 
 const url = `${LOGIN_URL}?username=${username}&password=${password}`
     // useEffect(() => {
@@ -33,22 +33,26 @@ const url = `${LOGIN_URL}?username=${username}&password=${password}`
         setErrMsg('');
     }, [username, password])
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             const response = await axios.post(url);
-console.log(response);
+console.log(response.payload);
             const accessToken = response?.data?.access_token;
+            const refreshToken = response?.data?.refresh_token;
+
             const roles = response?.data?.authorities;
-            // const r =[roles]
+console.log(response.data);
+// const r =[roles]
             // console.log(response?.data);
             const admin = "[ROLE_ADMIN]";
         
         // setRefreshToken(response?.data?.refresh_token)
-        const reftoken = localStorage.setItem("refToken", response?.data?.refresh_token);
+        const reftoken = localStorage.setItem("Refresh Token", refreshToken);
+        const acctoken = localStorage.setItem("Access Token", accessToken);
 
+console.log(localStorage);
         //             setAuth({ username, password, r, accessToken });
 
 // setIsLoggedIn(true)
@@ -57,7 +61,7 @@ console.log(response);
     // console.log(accessToken);
             setUsername('');
             setPassword('');
-            // navigate(from, { replace: true });
+            navigate(from, { replace: true });
 alert("Login Successful");
           
         } catch (err) {
@@ -109,7 +113,7 @@ console.log(err);
             <p>
                 Need an Account?<br />
                 <span className="line">
-                    {/* <Link to="/register">Sign Up</Link> */}
+                    <Link to="/register">Sign Up</Link>
                 </span>
             </p>
         </section>

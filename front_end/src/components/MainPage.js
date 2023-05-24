@@ -8,10 +8,12 @@ import {
 } from "react-router-dom"
 
 const newLinkUrl = "api/links/newLink";
+const toUser = "api/links/linkToUser";
 
 function MainPage() {
-  const [username, setUsername] = ('')
-const url=`api/links/get/jt0100/links`;
+  const [username, setUsername] = useState('jt0100')
+  const [loggedIn, setLoggedIn] = useState(false);
+const url=`api/links/get/${username}/links`;
 
     const [userLinks, setUserLinks] =useState([])
     const [linkName, setLinkName] =useState('')
@@ -55,15 +57,19 @@ return (
 )
 });
 const json = `{"name":"${linkName}", "url":"${newUrl}"}`;
+const user = `{"username" : "${username}"}`;
+
 const obj = JSON.parse(json);
+const userJson = JSON.parse(user);
 
 const handleSubmit = async(e)=>{
   e.preventDefault();
 
-  const postLink = newLinkUrl  +obj;
   try {
-    const response = await axios.post(postLink);
+    const response = await axios.post(newLinkUrl, obj, userJson );
     console.log(response);
+    
+
   }
   catch (err) {
     alert("error with post")
@@ -91,6 +97,7 @@ const handleSubmit = async(e)=>{
 
 
 {displayLinks}
+{ loggedIn ?
 
 <form onSubmit={handleSubmit}>
         <label htmlFor="header-search">
@@ -107,10 +114,10 @@ const handleSubmit = async(e)=>{
                     required
                 />
 
-                <label htmlFor="url">URL:</label>
+                <label htmlFor="URL">URL:</label>
                 <input
                     type="text"
-                    id="url"
+                    id="URL"
                     onChange={(e) => setNewURL(e.target.value)}
                     value={newUrl}
                     required
@@ -119,10 +126,10 @@ const handleSubmit = async(e)=>{
                 <button>Add Link</button>
 
 
-    </form>
-<div>
+    </form> 
+    : null
+}
 
-</div>
 
 
 </>

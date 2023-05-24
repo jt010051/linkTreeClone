@@ -6,6 +6,7 @@ import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.PUT;
+import static org.springframework.http.HttpMethod.OPTIONS;
 
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -46,10 +47,10 @@ public class RestSecurityConfig  {
         http.cors(); 
         http.csrf().disable();
     http.sessionManagement().sessionCreationPolicy(STATELESS);
-    http.authorizeHttpRequests().requestMatchers(POST, "api/links/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers("api/links/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers(POST, "api/auth/user/**").permitAll();
 
-    http.authorizeHttpRequests().requestMatchers(GET, "api/links/**").permitAll();
-
+  
 
  
     http.authorizeHttpRequests().requestMatchers(POST, "/api/auth/**").permitAll();
