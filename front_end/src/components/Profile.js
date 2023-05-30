@@ -6,6 +6,7 @@ const CHECK_LOGIN_URL = '/api/auth/token/refresh';
 
 const Profile = () => {
 
+  const [username, setUsername] = useState('')
 
     
     const [assigned, setAssigned] = useState(false)
@@ -19,10 +20,12 @@ AUTHORIZATION : 'Bearer ' +localStorage.getItem("Refresh Token")
 try{
    
     const response = await axios.get(CHECK_LOGIN_URL, refresh);
+    console.log(response);
+    setUsername(localStorage.getItem("username"))
+
 setAssigned(true)
 
 }catch (err) {
-    alert("Unauthorized")
     
 }
     }
@@ -35,7 +38,7 @@ setAssigned(true)
   { assigned ? <>
 <div className="a text-align: center">
   <br />
-  <h3>Welcome User!</h3>
+  <h3>Welcome {username}</h3>
   <p>Here are your User Details</p>
 </div>
 
@@ -53,6 +56,7 @@ setAssigned(true)
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
+      <th>Username</th>
       <th>Email</th>
       <th>Address</th>
       <th>Credit Card Number</th>
@@ -62,7 +66,8 @@ setAssigned(true)
     <tr id="row1">
       <td id="first_name">Name</td>
       <td id="last_name">Name</td>
-      <td id="email">@hcl.com</td>
+      <td id="last_name">{username}</td>
+      <td id="email">{username}@hcl.com</td>
       <td id="adress">1000</td>
       <td id="payment">1234 1234 1234 1234</td>
       <td id="action_row1">

@@ -1,8 +1,45 @@
-import React, { useEffect, useState }  from 'react'
+import React, { useEffect, useState, useContext }  from 'react'
 import Login from './LoginPage'
+import axios from '../api/axios';
+import { booleanContext } from '../Context';
 
 const NavBar = () => {
-    const [showProfile, setShowProfile]=useState(true);
+    const [showProfile, setShowProfile]=useState(false);
+    const [showRegister, setShowRegister]=useState(true);
+    const [showLogin, setShowLogin]=useState(true);
+    const [showLogOut, setShowLogOut]=useState(false);
+
+    // const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
+
+    const CHECK_LOGIN_URL = '/api/auth/token/refresh';
+
+    const refresh = {headers :{
+      'Content-Type' : 'application/json',
+      AUTHORIZATION : 'Bearer ' +localStorage.getItem("Refresh Token")
+      
+          }}
+          const checkLoggedIn = async (e) => {
+      
+      try{
+         
+          const response = await axios.get(CHECK_LOGIN_URL, refresh);
+          console.log(response);
+          setShowProfile(true)
+            setShowRegister(false)
+            setShowLogin(false)
+            setShowLogOut(true)
+          // setIsLoggedIn(true)
+      }catch (err) {
+          
+      }
+          }
+          useEffect(() => {
+              checkLoggedIn()
+            // if(isLoggedIn){
+            //  
+
+            // }
+          }, [])
 
   return (
     <nav className="navbar navbar-expand-lg navbar-text-light bg-dark">
@@ -26,7 +63,6 @@ const NavBar = () => {
           <a className="nav-link" href='/'>Home</a>
         </li>
         <li className="nav-item">
-          {/* <a className="nav-link" href='/products'>Products</a> */}
         </li>
         <li className="nav-item">
           {/* <a className="nav-link" href='/about'>About</a> */}
@@ -35,31 +71,18 @@ const NavBar = () => {
       <div className="form-inline my-2 my-lg-0">
         <ul className="navbar-nav mr-auto2">
           <li className="nav-item">
-            {/* <Link className="nav-link" to={{
-      pathname: "/cart",
-      search: "?sort=name",
-      hash: "#the-hash",
-      state: { fromDashboard: true }
-    }}>
-           Cart({cart})
-            </Link> */}
+       
             </li>
         
-     <li className="nav-item">
-          
-              <a className="nav-link" 
-      href= "/login">
-          Login
-            </a>
-        </li>
+     
           <li className="nav-item">
             
-             {/* { showRegister ? <a className="nav-link" href='/register'>Register</a> : null } */}
+             { showRegister ? <a className="nav-link" href='/register'>Register</a> : null }
           </li>
           <li className="nav-item">
             
           
-              {/* { showLogIn ?   <a className="nav-link" href='login'>Login</a> : null } */}
+              { showLogin ?   <a className="nav-link" href='login'>Login</a> : null }
           </li>
           <li className="nav-item">
             
@@ -67,7 +90,7 @@ const NavBar = () => {
           </li>
           <li className="nav-item">
             
-             {/* { showLogOut ?  <a className="nav-link text-danger" href='/logout'>Log Out</a> : null } */}
+             { showLogOut ?  <a className="nav-link text-danger" href='/logout'>Log Out</a> : null }
           </li>
         </ul>
         

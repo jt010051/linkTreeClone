@@ -47,7 +47,9 @@ public class RestSecurityConfig  {
         http.cors(); 
         http.csrf().disable();
     http.sessionManagement().sessionCreationPolicy(STATELESS);
-    http.authorizeHttpRequests().requestMatchers("api/links/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers(GET, "api/links/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers(POST, "api/links/**").permitAll();
+
     http.authorizeHttpRequests().requestMatchers(POST, "api/auth/user/**").permitAll();
 
   

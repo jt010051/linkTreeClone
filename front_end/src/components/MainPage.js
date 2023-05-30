@@ -8,7 +8,7 @@ import {
 } from "react-router-dom"
 
 const newLinkUrl = "api/links/newLink";
-const toUser = "api/links/linkToUser";
+const CHECK_LOGIN_URL = '/api/auth/token/refresh';
 
 function MainPage() {
   const [username, setUsername] = useState('jt0100')
@@ -20,31 +20,55 @@ const url=`api/links/get/${username}/links`;
     const [newUrl, setNewURL] =useState('')
 
     const [errMsg, setErrMsg] = useState('');
+    const refresh = {headers :{
+      'Content-Type' : 'application/json',
+      AUTHORIZATION : 'Bearer ' +localStorage.getItem("Refresh Token")
+      
+          }}
+          const checkLoggedIn = async (e) => {
+      
+      try{
+         
+          const response = await axios.get(CHECK_LOGIN_URL, refresh);
+          console.log(response);
+          setLoggedIn(true);
+          if(localStorage.getItem("username") === null){
+            setUsername("jt0100");
 
-    const fetchLinks = () =>{
+          }else{
+            setUsername(localStorage.getItem("username"))
+          }
+
+      }catch (err) {
+          
+      }
+          }
+          const fetchLinks = () =>{
 
     
-        axios.get(url).then(res=>{
-          setUserLinks(res.data)
+            axios.get(url).then(res=>{
+              setUserLinks(res.data)
+    console.log(res.data);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+        };
+          useEffect(() => {
+              checkLoggedIn()
+              fetchLinks();
 
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    };
+          }, [])
+   
 
-    useEffect(()=>{
-        fetchLinks();
-      
-           
-      },[]);
 
+  
 
 const displayLinks = userLinks.map((link)=>{
 return (
   <>
   
-    <tbody>
+    <React.Fragment>
     <tr>
       <td>
         <a href={`https://` +link.url}>
@@ -52,21 +76,23 @@ return (
         </a>
       </td>
     </tr>
-  </tbody>
+  </React.Fragment>
   </>
 )
 });
 const json = `{"name":"${linkName}", "url":"${newUrl}"}`;
-const user = `{"username" : "${username}"}`;
+
+const user = `{"username":"${username}"}`;
 
 const obj = JSON.parse(json);
 const userJson = JSON.parse(user);
+const fullLink = `${newLinkUrl}?username=${username}`
 
 const handleSubmit = async(e)=>{
   e.preventDefault();
 
   try {
-    const response = await axios.post(newLinkUrl, obj, userJson );
+    const response = await axios.post(fullLink, obj);
     console.log(response);
     
 
@@ -93,11 +119,11 @@ const handleSubmit = async(e)=>{
 <>
 
 
-<h1>Add New Link</h1>
+<h1> {username}'s Profile</h1>
 
 
 {displayLinks}
-{ loggedIn ?
+{ loggedIn ? 
 
 <form onSubmit={handleSubmit}>
         <label htmlFor="header-search">
@@ -126,8 +152,8 @@ const handleSubmit = async(e)=>{
                 <button>Add Link</button>
 
 
-    </form> 
-    : null
+    </form> : null
+    
 }
 
 

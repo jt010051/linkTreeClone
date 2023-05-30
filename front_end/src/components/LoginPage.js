@@ -22,8 +22,8 @@ const {refreshToken, setRefreshToken} = useContext(refreshContext)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
-const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
-
+const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext)
+console.log(isLoggedIn);
 const url = `${LOGIN_URL}?username=${username}&password=${password}`
     // useEffect(() => {
     //     userRef.current.focus();
@@ -49,18 +49,20 @@ console.log(response.data);
             const admin = "[ROLE_ADMIN]";
         
         // setRefreshToken(response?.data?.refresh_token)
-        const reftoken = localStorage.setItem("Refresh Token", refreshToken);
-        const acctoken = localStorage.setItem("Access Token", accessToken);
+         localStorage.setItem("Refresh Token", refreshToken);
+      localStorage.setItem("Access Token", accessToken);
+      localStorage.setItem("username", username);
 
 console.log(localStorage);
         //             setAuth({ username, password, r, accessToken });
 
-// setIsLoggedIn(true)
+setIsLoggedIn(true)
 
 
     // console.log(accessToken);
             setUsername('');
             setPassword('');
+            setIsLoggedIn(true)
             navigate(from, { replace: true });
 alert("Login Successful");
           
