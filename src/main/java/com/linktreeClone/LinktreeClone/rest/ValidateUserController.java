@@ -17,9 +17,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,6 +34,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linktreeClone.LinktreeClone.domain.LinkTreeUser;
 import com.linktreeClone.LinktreeClone.domain.Role;
+import com.linktreeClone.LinktreeClone.reposistory.UserRepository;
 import com.linktreeClone.LinktreeClone.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,6 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ValidateUserController {
     private final UserService userService;
 	private long expirationTime = 1800000;
+    private final UserRepository userRepo;
 
 
     @GetMapping("/users")
@@ -60,8 +65,22 @@ public class ValidateUserController {
     public LinkTreeUser saveUser(@RequestBody LinkTreeUser user) {
      return userService.saveUser(user);
     }
-  
-
+  @PutMapping("user/updatePassword")
+  public LinkTreeUser updatePassword( @RequestParam String username, @RequestParam String password) {
+		LinkTreeUser user = userRepo.findByusername(username);
+		
+		return userService.updatePassword(password, user);
+	  
+	  
+  }
+  @PutMapping("user/update")
+  public LinkTreeUser updatePassword( @RequestBody LinkTreeUser updatedUser) {
+		
+		
+		return userService.update(updatedUser);
+	  
+	  
+  }
     @PostMapping("/role/save")
     public ResponseEntity<Role>saveRole(@RequestBody Role role) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());

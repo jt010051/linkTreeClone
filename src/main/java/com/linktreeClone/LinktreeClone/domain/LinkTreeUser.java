@@ -32,8 +32,13 @@ public class LinkTreeUser {
 
     private String username;
     private String password;
-    
-    
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String address;
+    private String creditCard;
+
+
 
 	
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

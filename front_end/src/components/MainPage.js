@@ -11,15 +11,18 @@ const newLinkUrl = "api/links/newLink";
 const CHECK_LOGIN_URL = '/api/auth/token/refresh';
 
 function MainPage() {
-  const [username, setUsername] = useState('jt0100')
+  const [username, setUsername] = useState('')
   const [loggedIn, setLoggedIn] = useState(false);
-const url=`api/links/get/${username}/links`;
+
 
     const [userLinks, setUserLinks] =useState([])
     const [linkName, setLinkName] =useState('')
     const [newUrl, setNewURL] =useState('')
 
     const [errMsg, setErrMsg] = useState('');
+    function refreshPage() {
+      window.location.reload(false);
+    }
     const refresh = {headers :{
       'Content-Type' : 'application/json',
       AUTHORIZATION : 'Bearer ' +localStorage.getItem("Refresh Token")
@@ -30,32 +33,31 @@ const url=`api/links/get/${username}/links`;
       try{
          
           const response = await axios.get(CHECK_LOGIN_URL, refresh);
-          console.log(response);
           setLoggedIn(true);
-          if(localStorage.getItem("username") === null){
-            setUsername("jt0100");
-
-          }else{
-            setUsername(localStorage.getItem("username"))
-          }
+       
+          
 
       }catch (err) {
-          
+          console.log(err);
       }
           }
-          const fetchLinks = () =>{
+        
 
-    
-            axios.get(url).then(res=>{
-              setUserLinks(res.data)
-    console.log(res.data);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-        };
+         
+          const fetchLinks = async(e) =>{
+     
+            const url=`api/links/get/${localStorage.getItem("username")}/links`;
+try{
+const response = await axios.get(url);
+setUserLinks(response.data)
+}catch(err){
+  console.log(err);
+}
+            
+        }
           useEffect(() => {
               checkLoggedIn()
+
               fetchLinks();
 
           }, [])
@@ -87,14 +89,13 @@ const user = `{"username":"${username}"}`;
 const obj = JSON.parse(json);
 const userJson = JSON.parse(user);
 const fullLink = `${newLinkUrl}?username=${username}`
-
 const handleSubmit = async(e)=>{
   e.preventDefault();
 
   try {
     const response = await axios.post(fullLink, obj);
     console.log(response);
-    
+    fetchLinks();
 
   }
   catch (err) {
@@ -118,7 +119,7 @@ const handleSubmit = async(e)=>{
   return (
 <>
 
-
+{username != "" ? <>
 <h1> {username}'s Profile</h1>
 
 
@@ -158,8 +159,27 @@ const handleSubmit = async(e)=>{
 
 
 
+
+</> : 
+<>
+<h1> Welcome to this LinkTree clone! Please Sign In or Register</h1>
+<a href='/login'><button>Sign In</button></a>
+<a href='/register'><button>Register</button></a>
+
 </>
-  )
+
+
+
+
+
+
+}
+
+
+
+
+</>
+  ) 
 }
 
 export default MainPage

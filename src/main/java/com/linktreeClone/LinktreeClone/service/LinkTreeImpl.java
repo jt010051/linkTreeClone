@@ -21,7 +21,7 @@ private final LinkRepository repository;
 	@Override
 	public Link create(Link link) {
 		
-		log.info("Saving new url{}: ", link.getURL(), link.getURL());
+		log.info("Saving new url {}: ", link.getURL(), link.getURL());
 
 
 		return repository.save(link);
@@ -29,7 +29,7 @@ private final LinkRepository repository;
 
 	@Override
 	public Link get(Long id) {
-		log.info("Fetching url by id{}", id);
+		log.info("Fetching url by id {}", id);
 		return repository.findById(id).get();
 	}
 

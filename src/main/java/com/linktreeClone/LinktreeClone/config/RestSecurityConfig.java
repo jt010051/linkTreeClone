@@ -51,6 +51,7 @@ public class RestSecurityConfig  {
     http.authorizeHttpRequests().requestMatchers(POST, "api/links/**").permitAll();
 
     http.authorizeHttpRequests().requestMatchers(POST, "api/auth/user/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers(PUT, "api/auth/user/**").permitAll();
 
   
 

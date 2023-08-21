@@ -23,7 +23,6 @@ const NavBar = () => {
       try{
          
           const response = await axios.get(CHECK_LOGIN_URL, refresh);
-          console.log(response);
           setShowProfile(true)
             setShowRegister(false)
             setShowLogin(false)
@@ -65,7 +64,7 @@ const NavBar = () => {
         <li className="nav-item">
         </li>
         <li className="nav-item">
-          {/* <a className="nav-link" href='/about'>About</a> */}
+          <a className="nav-link" href='/about'>About</a>
         </li>
       </ul>
       <div className="form-inline my-2 my-lg-0">

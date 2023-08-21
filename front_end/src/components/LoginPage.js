@@ -3,6 +3,8 @@ import useAuth from '../hooks/useAuth.js';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { booleanContext } from '../Context';
 import { refreshContext } from '../Context';
+import { usernameContext } from '../Context';
+
 import axios from '../api/axios';
 
 
@@ -12,6 +14,7 @@ const LOGIN_URL = '/api/auth/login';
 const Login = () => {
     const { auth, setAuth } = useAuth();
 const {refreshToken, setRefreshToken} = useContext(refreshContext)
+
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/profile";
@@ -23,7 +26,6 @@ const {refreshToken, setRefreshToken} = useContext(refreshContext)
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
 const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext)
-console.log(isLoggedIn);
 const url = `${LOGIN_URL}?username=${username}&password=${password}`
     // useEffect(() => {
     //     userRef.current.focus();

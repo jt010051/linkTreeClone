@@ -103,13 +103,45 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public LinkTreeUser addLinkToUser(String username, String linkName) {
+	public LinkTreeUser addLinkToUser(String username, Link link) {
     	LinkTreeUser user = userRepo.findByusername(username);
     	
-    	Link link = linkRepo.findByName(linkName);
-     user.getLinks().add(link);	
+    	Link linkFound = linkRepo.findById(link.getID()).get();
+     user.getLinks().add(linkFound);	
      return user;
 	}
+
+	@Override
+	 public LinkTreeUser updatePassword (String password, LinkTreeUser updatedUser) {
+		LinkTreeUser updatedPassword= userRepo.findById(updatedUser.getId()).get();
+
+		if(updatedPassword.getPassword() != passwordEncoder.encode(password)) {
+			updatedPassword.setPassword(passwordEncoder.encode(password));
+
+		}
+
+return userRepo.save(updatedPassword);
+	}
+
+	@Override
+	public LinkTreeUser update(LinkTreeUser updatedUser) {
+		LinkTreeUser user= userRepo.findById(updatedUser.getId()).get();
+		
+		if(user.getUsername() != updatedUser.getUsername() && updatedUser.getUsername() != "") user.setUsername(updatedUser.getUsername());
+		if(user.getFirstName() != updatedUser.getFirstName()&& updatedUser.getFirstName() != "") user.setFirstName(updatedUser.getFirstName());
+		if(user.getLastName() != updatedUser.getLastName() && updatedUser.getLastName() != "") user.setLastName(updatedUser.getLastName());
+		if(user.getEmail() != updatedUser.getEmail() && updatedUser.getEmail() != "") user.setEmail(updatedUser.getEmail());
+		if(user.getAddress() != updatedUser.getAddress() && updatedUser.getAddress() != "") user.setAddress(updatedUser.getAddress());
+		if(user.getCreditCard() != updatedUser.getCreditCard() && updatedUser.getCreditCard() != "") user.setCreditCard(updatedUser.getCreditCard());
+
+		
+		
+		
+		
+		return userRepo.save(user);
+	}
+
+
 
 
 }

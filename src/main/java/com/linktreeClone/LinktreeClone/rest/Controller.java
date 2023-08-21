@@ -48,7 +48,7 @@ private final LinkService linkServe;
 System.out.println(username +" added a new link");        
         link = linkServe.create(link);
         
-return userService.addLinkToUser(username, link.getName());
+return userService.addLinkToUser(username, link);
 	}
 	
 	
