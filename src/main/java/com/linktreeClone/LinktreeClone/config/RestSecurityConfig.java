@@ -21,6 +21,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -37,7 +38,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@Configuration @EnableWebSecurity @RequiredArgsConstructor
+@Configuration @EnableWebSecurity @RequiredArgsConstructor @EnableMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
 public class RestSecurityConfig  { 
 	AuthenticationConfiguration authentication;
     @Bean
@@ -51,7 +52,15 @@ public class RestSecurityConfig  {
     http.authorizeHttpRequests().requestMatchers(POST, "api/links/**").permitAll();
 
     http.authorizeHttpRequests().requestMatchers(POST, "api/auth/user/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers(POST, "api/auth/user/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers(POST, "api/auth/role/addtouser").permitAll();
+
     http.authorizeHttpRequests().requestMatchers(PUT, "api/auth/user/**").permitAll();
+    http.authorizeHttpRequests().requestMatchers(GET, "api/links/get/{username}/links").permitAll();
+    http.authorizeHttpRequests().requestMatchers(PUT, "api/links/updateLink/{id}").permitAll();
+    http.authorizeHttpRequests().requestMatchers(DELETE, "api/links/deleteLink/{username}").permitAll();
+    http.authorizeHttpRequests().requestMatchers(DELETE, "api/auth/deleteUser/{username}").permitAll();
+    http.authorizeHttpRequests().requestMatchers(DELETE, "api/auth/deleteUser/admin/{userToDelete}").permitAll();
 
   
 
@@ -59,7 +68,7 @@ public class RestSecurityConfig  {
     http.authorizeHttpRequests().requestMatchers(POST, "/api/auth/**").permitAll();
     http.authorizeHttpRequests().requestMatchers(GET,  "/api/auth/token/refresh/**").permitAll();
 
-    http.authorizeHttpRequests().requestMatchers(GET,"/api/auth/users/**").hasAnyAuthority("ROLE_ADMIN");
+    http.authorizeHttpRequests().requestMatchers(GET,"/api/auth/users/**").permitAll();
 
 
     http.authorizeHttpRequests().anyRequest().authenticated();

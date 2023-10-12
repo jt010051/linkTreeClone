@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.linktreeClone.LinktreeClone.domain.Link;
 import com.linktreeClone.LinktreeClone.domain.LinkTreeUser;
+import com.linktreeClone.LinktreeClone.domain.PendingUserRoles;
 import com.linktreeClone.LinktreeClone.domain.Role;
 
 
@@ -20,5 +21,8 @@ public interface UserService {
     List<Link> getLinksByUser(String username);
     LinkTreeUser updatePassword (String password, LinkTreeUser updatedUser);
     LinkTreeUser update (LinkTreeUser user);
+    void pending (String username, String pendingRole);
+	void delete (LinkTreeUser user);
+	void removeRole(String username);
 
 }

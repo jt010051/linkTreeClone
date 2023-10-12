@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react'
 
+import { booleanContext } from '../Context';
 const About = () => {
+    const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
+console.log(isLoggedIn);
     return (
         <div>
             <p>

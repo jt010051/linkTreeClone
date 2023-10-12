@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {React,useState, useEffect} from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { booleanContext, usernameContext, oppositeContext, incrementContext, refreshContext } from './Context';
+import { booleanContext, usernameContext, oppositeContext, incrementContext, refreshContext, usersContext, proccessContext } from './Context';
 
 import MainPage from './components/MainPage';
 import Login from './components/LoginPage';
@@ -11,19 +11,39 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import Logout from './components/Logout';
 import About from './components/About';
+import Users from './components/Users';
+import DeleteProccess from './components/DeleteProccess';
 import ChangePassword from './components/ChangePassword';
+import OtherLinks from './components/OtherLinks';
+import UsersAdmin from './components/Users (Admin_View)';
+import axios from './api/axios'
+
+
+const URL = "/api/auth/users";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn]=useState(false);
+  const[users, setUsers] = useState([])
+  const[proccess, setProccess] = useState('pending')
 
-  useEffect(()=>{
-    if(isLoggedIn){
-          localStorage.setItem("Logged In", true);
-    
+  const fetchUsers = async(e) =>{
+     
+    try{
+    const response = await axios.get(URL);
+    setUsers(response.data)
+    }catch(err){
+    console.log(err);
+    alert("Server Error")
     }
-    
-    
-    },[isLoggedIn])
+            
+        }
+        
+  useEffect(()=>{
 
+    fetchUsers()
+
+    
+    },[])
 
 
   return (
@@ -33,7 +53,9 @@ function App() {
 <booleanContext.Provider/>
 <oppositeContext.Provider/> */}
   <booleanContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
-  <usernameContext.Provider value={''}>
+  <usersContext.Provider value={{users, setUsers}}>
+  <proccessContext.Provider value={{proccess, setProccess}}>
+
 
 
 <NavBar/>
@@ -47,7 +69,10 @@ function App() {
 <Route path="/logout" element={<Logout />} />
 <Route path="/about" element={<About />} />
 <Route path="/changePassword" element={<ChangePassword />} />
-
+<Route path="/users" element={<Users />} />
+<Route path="/delete" element={<DeleteProccess />} />
+<Route path="/links" element={<OtherLinks />} />
+<Route path = "/adminUsersInDatabase" element={<UsersAdmin />} />
 <Route>
           <Route path="/" element={<MainPage />} />
         </Route>
@@ -55,7 +80,9 @@ function App() {
 
 
 </Routes>
-</usernameContext.Provider>
+</proccessContext.Provider>
+
+</usersContext.Provider>
 
 </booleanContext.Provider>
 

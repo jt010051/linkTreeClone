@@ -53,7 +53,9 @@ links.add(instagram);
 links.add(linkedin);
 String defaultUrl = "@gmail.com";
 String defaultUsername = "jt0100";
-			userService.saveUser(new LinkTreeUser(null, defaultUsername, "12345678","Jon-Thomas","Smith", defaultUsername + defaultUrl,"5555 Five Ln, Fake Town, TX 55555", "1111 1111 1111 1111",  new ArrayList<>(), links));
+			userService.saveUser(new LinkTreeUser(null, defaultUsername, "12345678","Jon-Thomas","Smith", 
+					defaultUsername + defaultUrl,"5555 Five Ln, Fake Town, TX 55555", "1111 1111 1111 1111", "N/A", false, 
+					new ArrayList<>(), links));
 			
 
 			

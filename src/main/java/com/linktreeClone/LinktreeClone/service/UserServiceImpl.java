@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Example;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.linktreeClone.LinktreeClone.domain.Link;
 import com.linktreeClone.LinktreeClone.domain.LinkTreeUser;
+import com.linktreeClone.LinktreeClone.domain.PendingUserRoles;
 import com.linktreeClone.LinktreeClone.domain.Role;
 import com.linktreeClone.LinktreeClone.reposistory.LinkRepository;
 import com.linktreeClone.LinktreeClone.reposistory.RoleRepository;
@@ -53,9 +55,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public LinkTreeUser saveUser(LinkTreeUser user) {
+
+  List<LinkTreeUser> list = userRepo.findAll();
+ for(LinkTreeUser i : list) {
+	 if(i.getUsername().equals(user.getUsername())) return null;
+ }
+    	
         log.info("Saving new user {} to the database", user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
+    	
+    	
+    
+   
     }
 
     @Override
@@ -70,6 +82,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         LinkTreeUser user = userRepo.findByusername(username);
         Role role = roleRepo.findByName(roleName);
         user.getRoles().add(role);
+        user.setPending(false);
+        user.setPendingRole("N/A");
+        log.info("userDetails {}", user);
+
     }
 
     @Override
@@ -86,9 +102,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public List <Link> getLinksByUser(String username) {
-        log.info( username +"Found");
+        log.info( username +" Found");
 
-        log.info("Fetching all links for" +username);
+        log.info("Fetching all links for " +username);
     	LinkTreeUser user = userRepo.findByusername(username);
 
 
@@ -139,6 +155,42 @@ return userRepo.save(updatedPassword);
 		
 		
 		return userRepo.save(user);
+	}
+
+	@Override
+	public void pending(String username, String pendingRole) {
+		LinkTreeUser thisUser= userRepo.findByusername(username);
+	System.out.println(pendingRole);
+	  	    	if(pendingRole.equals("admin")) thisUser.setPending(true);
+	  	    	else {
+	  	    		thisUser.setRoles(new ArrayList<>());
+	  	    		addRoleToUser(thisUser.getUsername(), "ROLE_USER");
+	  	    	}
+	  	    	
+		
+		
+	}
+
+	@Override
+	public void delete( LinkTreeUser user) {
+		
+		
+
+
+
+		userRepo.deleteById(user.getId());
+		
+	}
+
+	@Override
+	public void removeRole(String username) {
+		LinkTreeUser user = userRepo.findByusername(username);
+		
+		
+user.setRoles(null);		
+		
+		
+		
 	}
 
 

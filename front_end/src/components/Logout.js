@@ -5,10 +5,10 @@ import NavBar from './NavBar';
 const Logout = () => {
 
     const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
-useEffect(()=>{
+
 setIsLoggedIn(false)
 localStorage.clear()
-},[setIsLoggedIn])
+
   return (
       <>
     <div>You Have Successfuly been logged out</div>

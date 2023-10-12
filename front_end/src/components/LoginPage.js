@@ -17,7 +17,7 @@ const {refreshToken, setRefreshToken} = useContext(refreshContext)
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/profile";
+    const from = location.state?.from?.pathname || "/";
 
     // const userRef = useRef();
     // const errRef = useRef();
@@ -35,6 +35,10 @@ const url = `${LOGIN_URL}?username=${username}&password=${password}`
         setErrMsg('');
     }, [username, password])
 
+
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -45,26 +49,32 @@ console.log(response.payload);
             const refreshToken = response?.data?.refresh_token;
 
             const roles = response?.data?.authorities;
+            console.log(response.data.authorities);
+            localStorage.setItem("Authorities", roles);
+
 console.log(response.data);
 // const r =[roles]
             // console.log(response?.data);
             const admin = "[ROLE_ADMIN]";
-        
+            const user = "[ROLE_USER]";
+
         // setRefreshToken(response?.data?.refresh_token)
          localStorage.setItem("Refresh Token", refreshToken);
       localStorage.setItem("Access Token", accessToken);
       localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      localStorage.setItem("role", roles);
+
 
 console.log(localStorage);
         //             setAuth({ username, password, r, accessToken });
 
 setIsLoggedIn(true)
-
+console.log(isLoggedIn);
 
     // console.log(accessToken);
             setUsername('');
             setPassword('');
-            setIsLoggedIn(true)
             navigate(from, { replace: true });
 alert("Login Successful");
           
@@ -84,7 +94,7 @@ console.log(err);
             // errRef.current.focus();
         }
     }
-   
+
 
   return (
   

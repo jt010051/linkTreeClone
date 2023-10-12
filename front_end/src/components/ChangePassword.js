@@ -1,11 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import axios from '../api/axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { booleanContext } from '../Context';
 
 const LOGIN_URL = '/api/auth/login';
 
 const ChangePassword = () => {
     const [checkingPassword, setCheckingPassword] = useState('')
+    const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
 
     // const [password, setPassword] = useState('')
     const [editedPassword, setEditedPassword] = useState('')
@@ -18,6 +20,7 @@ const ChangePassword = () => {
     const from = location.state?.from?.pathname || "/profile";
 
     useEffect(() => {
+        setIsLoggedIn(true)
         setUsername(localStorage.getItem("username"))
         setId(localStorage.getItem("id"))
 

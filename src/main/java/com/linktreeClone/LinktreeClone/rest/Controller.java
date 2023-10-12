@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,6 +59,7 @@ return userService.addLinkToUser(username, link);
 		
 		return linkRepo.findAll();
 	}
+
 	@GetMapping("/get/{username}")
 	public LinkTreeUser getUser( @PathVariable("username") String username) {
         return userService.getUser(username);
@@ -67,6 +70,19 @@ return userService.addLinkToUser(username, link);
 		
         return userService.getLinksByUser(username);
 
+	}
+	@PutMapping("updateLink/{id}")
+	public Link update(@PathVariable ("id") Long id, @RequestBody Link link) {
+		
+		return linkServe.update(id, link);
+	}
+	@DeleteMapping("deleteLink/{username}")
+	public void delete( @PathVariable("username") String username, @RequestBody Link link) {
+		log.info("Delete url by name {}", link);
+log.info(link.getURL());
+		LinkTreeUser user = userService.getUser(username);
+	
+		 linkServe.delete(username, user, link);
 	}
 	@Data
 	class LinkToUserForm {

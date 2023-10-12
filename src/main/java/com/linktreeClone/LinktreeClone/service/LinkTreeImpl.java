@@ -2,10 +2,12 @@ package com.linktreeClone.LinktreeClone.service;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.linktreeClone.LinktreeClone.domain.Link;
+import com.linktreeClone.LinktreeClone.domain.LinkTreeUser;
 import com.linktreeClone.LinktreeClone.reposistory.LinkRepository;
 
 import jakarta.transaction.Transactional;
@@ -38,15 +40,29 @@ private final LinkRepository repository;
 
 
 	@Override
-	public Link update(Link server) {
-		// TODO Auto-generated method stub
-		return null;
+	public Link update(Long id, Link link) {
+Link updateLink = repository.findById(id).get();
+if(link.getName() != "") updateLink.setName(link.getName());
+if(link.getURL() != "") updateLink.setURL(link.getURL());
+return updateLink;
 	}
 
 	@Override
-	public Boolean delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(String username, LinkTreeUser user, Link link) {
+		Link deleteLink = repository.findById(link.getID()).get();
+		
+		List<Link> links = user.getLinks();
+		for(int i =0; i < links.size(); i++) {
+			if(links.get(i).getID() == deleteLink.getID()) {
+				links.remove(i);
+				
+			}
+		}
+		log.info("Delete url by id {}", deleteLink.getID());
+
+
+ repository.deleteById(deleteLink.getID());
+			
 	}
 	
 	

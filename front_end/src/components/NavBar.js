@@ -8,8 +8,9 @@ const NavBar = () => {
     const [showRegister, setShowRegister]=useState(true);
     const [showLogin, setShowLogin]=useState(true);
     const [showLogOut, setShowLogOut]=useState(false);
+    const [userData, setUserData] = useState();
 
-    // const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
+    const{isLoggedIn, setIsLoggedIn} =useContext(booleanContext )
 
     const CHECK_LOGIN_URL = '/api/auth/token/refresh';
 
@@ -27,19 +28,30 @@ const NavBar = () => {
             setShowRegister(false)
             setShowLogin(false)
             setShowLogOut(true)
-          // setIsLoggedIn(true)
+           
+              localStorage.setItem("Logged In", true);
+        
+        
+          setIsLoggedIn(true)
       }catch (err) {
           
       }
+      if(!isLoggedIn){
+        setShowProfile(false)
+        setShowRegister(true)
+        setShowLogin(true)
+        setShowLogOut(false)
+      }
           }
+          checkLoggedIn()
           useEffect(() => {
               checkLoggedIn()
-            // if(isLoggedIn){
-            //  
+       
+          }, [isLoggedIn])
 
-            // }
-          }, [])
 
+
+          
   return (
     <nav className="navbar navbar-expand-lg navbar-text-light bg-dark">
 
@@ -65,6 +77,9 @@ const NavBar = () => {
         </li>
         <li className="nav-item">
           <a className="nav-link" href='/about'>About</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href='/users'>Users</a>
         </li>
       </ul>
       <div className="form-inline my-2 my-lg-0">
