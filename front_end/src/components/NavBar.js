@@ -70,10 +70,8 @@ const NavBar = () => {
     </Button>
   
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
-          <a className="nav-link" href='/'>Home</a>
-        </li>
+      <ul className="navbar-nav ms-auto">
+  
         <li className="nav-item">
         </li>
         <li className="nav-item">

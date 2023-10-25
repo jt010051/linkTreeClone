@@ -123,7 +123,7 @@ console.log(err);
                     value={password}
                     required
                 />
-                <Button>Sign In</Button>
+                <Button onClick={handleSubmit}>Sign In</Button>
             </form>
             <p>
                 Need an Account?<br />

@@ -53,7 +53,12 @@ if(deleteUsers){
 }, [deleteUsers ]);
 
       const displayUsers = users.map((user)=>{
-       
+        let stringRole = JSON.stringify(user.roles.map((u)=>u.name))
+    let role = ''
+    for(let i = 0; i < stringRole.length; i++){
+      if(stringRole[i] != '[' && stringRole[i] != ']' && stringRole[i] != '"') role += stringRole[i];
+    }
+    console.log(role);
         return (
           <>
           
@@ -62,21 +67,50 @@ if(deleteUsers){
               
               
               <React.Fragment>
+                <div id="wrapper text-align: center;">
+  <table
+    align="center"
+    cellSpacing="2"
+    cellPadding="5"
+    id="data_table"
+    border="1"
+  >
+    <tbody>
+    <tr>
+    <th>Username</th>
+    <th>Role</th>
+    <th>Action</th>
+
+    </tr>
             <tr>
-              <td>
-              
+              <td id="row1"> 
+ 
               {user.username}
 
                 {/* <a href={`/deleteThisUser`} id='link'> */}
-                  <Button onClick={ () =>{
+           
+                {/* </a> */}
+              </td>
+              <td id="role">
+              {role}
+           
+              </td>
+           
+            </tr>
+            <td id="action_row1">
+              <tr>
+              <Button onClick={ () =>{
                     setUserToDelete(user.username)
                     setDeleteUsers(true)
                   }}>
                     Delete
                 </Button>
-                {/* </a> */}
-              </td>
-            </tr>
+
+              </tr>
+            </td>
+            </tbody>
+            </table>
+            </div>
           </React.Fragment>
       }
           </>

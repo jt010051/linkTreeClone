@@ -12,7 +12,14 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.navbar.bg-dark a {
+  color: rgb(230, 221, 221);
 
+}
+
+.navbar.bg-dark {
+  background-color: #343a40 !important;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

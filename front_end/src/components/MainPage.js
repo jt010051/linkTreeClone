@@ -266,7 +266,7 @@ return (
                                                   required
                                               />
 
-                                              <Button>Add Link</Button>
+                                              <Button onClick={handleNewSubmit}>Add Link</Button>
                                             
 
                                   </form>  </> : <>
