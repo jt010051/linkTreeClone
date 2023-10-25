@@ -4,6 +4,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { booleanContext } from '../Context';
 import { usersContext } from '../Context'
+import { Button } from 'react-bootstrap';
 
 
 
@@ -181,10 +182,10 @@ localStorage.setItem("id", id)
                       }} />
                       <label htmlFor="deny">Deny</label> 
 
-                          <button onClick={()=>{
+                          <Button onClick={()=>{
 
                             submitRole()
-                          }}>Submit</button>
+                          }}>Submit</Button>
                                     </Popup>
                                       </td>
                                     </tr>
@@ -246,7 +247,7 @@ localStorage.setItem("id", id)
 
       <td id='password'>  <a href="/changePassword">
 
-<button>Change Password</button>
+<Button>Change Password</Button>
 </a></td>
       <td id="action_row1">
         
@@ -321,7 +322,7 @@ placeholder={email}/>
              />
           } position="right center"> 
           <h3>Are You Sure you want to Delete your Account</h3>
-          <a href='/delete'><button>Delete</button></a>
+          <a href='/delete'><Button>Delete</Button></a>
 
           </Popup>
 
@@ -335,7 +336,7 @@ placeholder={email}/>
 <h1>Pending Tasks</h1>
 {displayUsers}
 <a href='/adminUsersInDatabase'>
-<button>Users in Database</button>
+<Button>Users in Database</Button>
 </a>
     </div> : null
 

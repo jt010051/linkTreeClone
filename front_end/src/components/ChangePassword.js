@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import axios from '../api/axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { booleanContext } from '../Context';
+import { Button } from 'react-bootstrap';
 
 const LOGIN_URL = '/api/auth/login';
 
@@ -94,7 +95,7 @@ console.log(err);
  <p id="number" className="invalid">A <b>number</b></p>
  <p id="length" className="invalid">Minimum <b>8 characters</b></p>
 </div>
-<button>Submit</button>
+<Button>Submit</Button>
 
 
 </form>

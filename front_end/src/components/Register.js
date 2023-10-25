@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 import { proccessContext } from '../Context';
+import { Button } from 'react-bootstrap';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -210,7 +211,7 @@ required />
     <label htmlFor="admin">Administrator</label>
 </div>
 <br></br>
- <button type="button" className="btn btn-primary" onClick={handleSubmit} >Register</button>
+ <Button type="button" className="btn btn-primary" onClick={handleSubmit} >Register</Button>
 
 
 <div id="message">

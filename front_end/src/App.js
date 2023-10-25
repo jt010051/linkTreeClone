@@ -17,6 +17,8 @@ import ChangePassword from './components/ChangePassword';
 import OtherLinks from './components/OtherLinks';
 import UsersAdmin from './components/Users (Admin_View)';
 import axios from './api/axios'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 const URL = "/api/auth/users";

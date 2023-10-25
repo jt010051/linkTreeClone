@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext }  from 'react'
 import Login from './LoginPage'
 import axios from '../api/axios';
 import { booleanContext } from '../Context';
+import { Button, Navbar } from 'react-bootstrap';
 
 const NavBar = () => {
     const [showProfile, setShowProfile]=useState(false);
@@ -53,10 +54,10 @@ const NavBar = () => {
 
           
   return (
-    <nav className="navbar navbar-expand-lg navbar-text-light bg-dark">
+    <Navbar className="navbar navbar-expand-lg navbar-text-light bg-dark">
 
     <a className="navbar-brand" href="/">LinkTree Clone</a>
-    <button
+    <Button
       className="navbar-toggler"
       type="button"
       data-toggle="collapse"
@@ -66,7 +67,7 @@ const NavBar = () => {
       aria-label="Toggle navigation"
     >
       <span className="navbar-toggler-icon"></span>
-    </button>
+    </Button>
   
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mr-auto">
@@ -110,7 +111,7 @@ const NavBar = () => {
         
       </div>
     </div>
-  </nav>  )
+  </Navbar>  )
 }
 
 export default NavBar

@@ -3,6 +3,8 @@ import axios from '../api/axios'
 import { booleanContext } from '../Context';
 import usePrevious from './usePrevious';
 import Popup from 'reactjs-popup';
+import { Button, Stack } from 'react-bootstrap';
+
 
 import {
   BrowserRouter as Router,
@@ -82,17 +84,17 @@ const displayLinks = userLinks.map((link)=>{
     <tr>
       <td>
         <a href={`https://` +link.url}>
-          <button>
+          <Button>
         {link.name}
-        </button>
+        </Button>
         </a>
-        <button onClick={() =>{
+        <Button onClick={() =>{
                   setEdit(true)
                   setLinkId(link.id)
                   setLinkName(link.name)
                   setNewURL(link.url)
-        }}>Edit</button>
-        <button onClick={ () => {
+        }}>Edit</Button>
+        <Button onClick={ () => {
                   setLinkId(link.id)
                   setLinkName(link.name)
                   setNewURL(link.url)
@@ -100,7 +102,7 @@ const displayLinks = userLinks.map((link)=>{
 
                   setDeleteLinks(true)
 
-        }}>Delete</button>
+        }}>Delete</Button>
 
       </td>
     </tr>
@@ -264,7 +266,7 @@ return (
                                                   required
                                               />
 
-                                              <button>Add Link</button>
+                                              <Button>Add Link</Button>
                                             
 
                                   </form>  </> : <>
@@ -285,15 +287,15 @@ return (
 
                                   </label>
                                   <br/>
-                                  <button>Submit</button>
+                                  <Button>Submit</Button>
 
                                 </form>
-                          <button onClick={() => {
+                          <Button onClick={() => {
                             setEdit(false)
                             setLinkId(0)
                             setLinkName('')
                             setNewURL('')
-                          }}>Cancel</button>
+                          }}>Cancel</Button>
                             </>
 
 
@@ -310,10 +312,12 @@ return (
                     </> : 
                     <>
                           <h1> Welcome to this LinkTree clone! Please Sign In or Register</h1>
-                          <a href='/login'><button>Sign In</button></a>
-                          <a href='/register'><button>Register</button></a>
-                          <a href='/users'><button>Users Already Registered</button></a>
+                          <Stack direction="horizontal" gap={2}>
 
+                          <a href='/login'><Button  variant="primary">Sign In</Button></a>
+                          <a href='/register'><Button   variant="primary">Register</Button></a>
+                          <a href='/users'><Button variant="primary">Users Already Registered</Button></a>
+                            </Stack>
                     </>
 
                     }

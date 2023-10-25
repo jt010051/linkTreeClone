@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import axios from '../api/axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { booleanContext } from '../Context';
+import { Button } from 'react-bootstrap';
 
 function DeleteProccess() {
     const [password, setPassword] = useState('')
@@ -45,7 +46,7 @@ catch(err){
           Password:
           <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} />
         </label>
-        <button onClick={handleSubmit}>Submit</button>
+        <Button onClick={handleSubmit}>Submit</Button>
         </>
         
               );

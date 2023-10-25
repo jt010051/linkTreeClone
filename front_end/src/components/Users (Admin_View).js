@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext }  from 'react'
 import { usersContext } from '../Context'
 import axios from '../api/axios';
 import { json } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 
 
@@ -67,12 +68,12 @@ if(deleteUsers){
               {user.username}
 
                 {/* <a href={`/deleteThisUser`} id='link'> */}
-                  <button onClick={ () =>{
+                  <Button onClick={ () =>{
                     setUserToDelete(user.username)
                     setDeleteUsers(true)
                   }}>
                     Delete
-                </button>
+                </Button>
                 {/* </a> */}
               </td>
             </tr>

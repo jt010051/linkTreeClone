@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext }  from 'react'
 import { usersContext } from '../Context'
 import axios from '../api/axios';
+import { Button } from 'react-bootstrap';
+
 function Users() {
     const {users, setUsers} =useContext(usersContext)
     
@@ -15,9 +17,9 @@ function Users() {
             <tr>
               <td>
                 <a href={`/links`} id='link'>
-                  <button onClick={e => localStorage.setItem("user", e.target.innerText)}>
+                  <Button onClick={e => localStorage.setItem("user", e.target.innerText)}>
                 {user.username === localStorage.getItem("username") ? null : user.username}
-                </button>
+                </Button>
                 </a>
               </td>
             </tr>
