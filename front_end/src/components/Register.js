@@ -5,6 +5,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 import { proccessContext } from '../Context';
 import { Button } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -89,26 +90,56 @@ try{
 <div className="bg-warning p-1"> </div>
 
 <form >
+<table
+// display="inline-block"
+// width="200px"
+// margin-right="30px"
+// text-align="right"
+cellSpacing="2"
+cellPadding="5"
+id="data_table"
+border="1"
+className='table'
+>
+
+
+
+<tbody>
+
+            <tr>
+             
 <div>
         <label htmlFor="name">First Name</label>
-        <input required type="text" id="fName" className="name" autoComplete="name" enterKeyHint="next" value={firstName} onChange={(e) => setFirstName(e.target.value)}></input>
+        <input required type="text" id="fName" className="form-control" autoComplete="name" enterKeyHint="next" value={firstName} onChange={(e) => setFirstName(e.target.value)}
+      ></input>
       </div>
+</tr>
+<tr>
       <div>
         <label htmlFor="name">Last Name</label>
-        <input required type="text" id="lName" className="name" autoComplete="name" enterKeyHint="next" value={lastName} onChange={(e) => setLastName(e.target.value)}></input>
+        <input required type="text" id="lName" className="form-control" autoComplete="name" enterKeyHint="next" value={lastName} onChange={(e) => setLastName(e.target.value)}></input>
       </div>
+      </tr>
+      <tr>
 <div>
         <label htmlFor="street-address">Street address</label>
-        <input type="text" id="street-address" name="street-address" autoComplete="street-address" required enterKeyHint="next" value={street} onChange={(e) => setStreet(e.target.value)}></input>
+        <input type="text" id="street-address" className ="form-control" name="street-address" autoComplete="street-address" required enterKeyHint="next" value={street} onChange={(e) => setStreet(e.target.value)}></input>
       
       </div>
-  
+      </tr>
+      <tr>
       <div>
         <label htmlFor="city">City</label>
-        <input required type="text" id="city" name="city" autoComplete="address-level2" enterKeyHint="next" value={city} onChange={(e) => setCity(e.target.value)}></input>
+        <input required type="text" id="city" className ="form-control"name="city" autoComplete="address-level2" enterKeyHint="next" value={city} onChange={(e) => setCity(e.target.value)}></input>
       </div>
+      </tr>
+      <tr>
       <div>
-      <select value={state} onChange={(e) => setState(e.target.value)} >
+      {/* <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value={state} onChange={(e) => setState(e.target.value)} >
+      Select State
+      </button> */}
+
+<select  value={state} onChange={(e) => setState(e.target.value)} >
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
 	<option value="AZ">Arizona</option>
@@ -160,12 +191,19 @@ try{
 	<option value="WV">West Virginia</option>
 	<option value="WI">Wisconsin</option>
 	<option value="WY">Wyoming</option>
-</select>
-      </div>
+  </select>
+
+</div>
+      
+ 
+      </tr>
+      <tr>
       <div>
         <label htmlFor="postal-code">ZIP or postal code </label>
         <input className="postal-code" id="postal-code" name="postal-code" autoComplete="postal-code" enterKeyHint="next" value={zipCode} onChange={(e) => setZipCode(e.target.value)} required></input>
       </div>
+      </tr>
+      <tr>
       <div className='form-group'>
               <label htmlFor="creditCard">Credit Card Number:</label>
 
@@ -181,27 +219,36 @@ try{
                 
               />
             </div>
+            </tr>
+            <tr>
             <div>
             <label htmlFor="email">Email:</label>
 <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required></input>
             </div>
+            </tr>
+            <tr>
  <div className="form-group">
    <label htmlFor="username">Username</label>
    <input type="text" className="form-control" id="username" placeholder="user name"  name="username" value={username} onChange={(e) => setUsername(e.target.value)} required
 />
  </div>
-
+ </tr>
+ <tr>
  <div className="form-group">
    <label htmlFor="password">Password</label>
    <input type="password" className="form-control" id="password" placeholder="password"  name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
    onChange={(e) => setPassword(e.target.value)}
    value={password} required/>
  </div>
+ </tr>
+ <tr>
   <div className="form-group">
    <label htmlFor="password">Confirm Password</label>
    <input type="password" className="form-control" id="password" placeholder="password"  name="password" required/>
    
  </div>
+ </tr>
+ <tr>
  <div>
 <h3>Role Requested</h3>
 <input type="radio" id="user" name="role" value="user" onClick={(e) => setRole('user')}
@@ -210,8 +257,13 @@ required />
     <input type="radio" id="admin" name="role" value="admin" onClick={(e) => setRole('admin')} required/>
     <label htmlFor="admin">Administrator</label>
 </div>
-<br></br>
+</tr>
+<tr>
  <Button type="button" className="btn btn-primary" onClick={handleSubmit} >Register</Button>
+ </tr>
+ </tbody>
+ </table>
+
 
 
 <div id="message">

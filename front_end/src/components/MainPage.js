@@ -46,7 +46,6 @@ function MainPage() {
 
 
 
-
 const checkLoggedIn = async (e) => {
       
                     try{
@@ -81,13 +80,14 @@ const displayLinks = userLinks.map((link)=>{
   <>
   
     <React.Fragment>
-    <tr>
+<tr>
       <td>
         <a href={`https://` +link.url}>
           <Button>
         {link.name}
         </Button>
         </a>
+       
         <Button onClick={() =>{
                   setEdit(true)
                   setLinkId(link.id)
@@ -105,7 +105,7 @@ const displayLinks = userLinks.map((link)=>{
         }}>Delete</Button>
 
       </td>
-    </tr>
+      </tr>
   </React.Fragment>
   </>
 )
@@ -157,7 +157,7 @@ const editLinks = async(e) =>{
                         const response = await axios.put(updateLink, objEdit);
                         console.log(response);
                   alert("Success")
-                        
+                  window.location.reload(false);
                       }
                       catch (err) {
                         alert(err)
@@ -220,7 +220,7 @@ useEffect(() => {
  
   fetchLinks()
 }, [linkName])
-console.log(isLoggedIn);
+
 return (
                   <>
 
@@ -234,8 +234,21 @@ return (
                           { localStorage.getItem("Logged In") ? 
 
                               !edit ? <>
+                              <div id="wrapper text-align: center;">
+  <table
+    align="center"
+    cellSpacing="2"
+    cellPadding="5"
+    id="data_table"
+    border="1"
+    className='table'
+  >
+    <tbody>
+    <tr>
                                   {displayLinks}
-
+</tr>
+<tr>
+  <td>
                                 <form onSubmit={handleNewSubmit}>
                                       <label htmlFor="header-search">
                                           <span className="visually-hidden">Add Link</span>
@@ -247,7 +260,7 @@ return (
                                                   // ref={userRef}
                                                   autoComplete="off"
                                                   onChange={(e) => {
-                                setLinkName(e.target.value)
+                                                  setLinkName(e.target.value)
                                                   }
                                                     
                                                     }
@@ -267,35 +280,48 @@ return (
                                               />
 
                                               <Button onClick={handleNewSubmit}>Add Link</Button>
-                                            
+                                              
+                                              
 
-                                  </form>  </> : <>
-                                  <form onSubmit={() => {
-                                    if(editedLink === '') setEditedLink(linkName)
-                                    if(editedUrl === '') setEditedUrl(newUrl)
-                                    
-                                    editLinks()
-                                    }}>
+                                  </form>  
+                                  </td>
+                                 </tr>
+                                              </tbody> 
+                                              </table>
+                                              </div>
+                                  </> : <>
+                                  <form >
+                                    <table>
+                                      <tr>
+                                        
                                     <label>
                                     New Link Name:
                                     <input type="text" name="linkName"  onChange={(e) => setEditedLink(e.target.value)} placeholder={linkName}/>
                                   </label>
-                                  <br/>
+                                  <tr>
+                                <tr>
+
                                   <label>
                                     New Link Url:
                                     <input type="text" name="urlName"  onChange={(e) => setEditedUrl(e.target.value)}placeholder={newUrl}/>
 
                                   </label>
+                                  </tr>
+                                  </tr>
                                   <br/>
-                                  <Button>Submit</Button>
-
-                                </form>
+                          
+                                  <Button onClick={() => editLinks()}>Submit</Button>
+                                 
+                              
                           <Button onClick={() => {
                             setEdit(false)
                             setLinkId(0)
                             setLinkName('')
                             setNewURL('')
                           }}>Cancel</Button>
+                          </tr>
+                          </table>
+                          </form>
                             </>
 
 

@@ -221,6 +221,7 @@ localStorage.setItem("id", id)
     cellPadding="5"
     id="data_table"
     border="1"
+    className='table'
   >
     <tbody>
     <tr>
@@ -334,7 +335,19 @@ placeholder={email}/>
 </div> 
 {role === "Administrator" ? <div>
 <h1>Pending Tasks</h1>
-{displayUsers}
+<table>
+<tr>
+  <th>Users Requesting Admin Access</th>
+</tr>
+<tr>
+<td>
+{displayUsers} 
+</td>
+
+</tr>
+</table>
+<br/>
+<h1>Users Currently In Database</h1>
 <a href='/adminUsersInDatabase'>
 <Button>Users in Database</Button>
 </a>

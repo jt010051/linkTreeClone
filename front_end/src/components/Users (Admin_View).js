@@ -58,6 +58,7 @@ if(deleteUsers){
     for(let i = 0; i < stringRole.length; i++){
       if(stringRole[i] != '[' && stringRole[i] != ']' && stringRole[i] != '"') role += stringRole[i];
     }
+    role = role.replace('ROLE_', ''); 
     console.log(role);
         return (
           <>
@@ -65,40 +66,19 @@ if(deleteUsers){
             
               {user.username === localStorage.getItem("username") ? null : 
               
-              
-              <React.Fragment>
-                <div id="wrapper text-align: center;">
-  <table
-    align="center"
-    cellSpacing="2"
-    cellPadding="5"
-    id="data_table"
-    border="1"
-  >
-    <tbody>
-    <tr>
-    <th>Username</th>
-    <th>Role</th>
-    <th>Action</th>
-
-    </tr>
-            <tr>
-              <td id="row1"> 
+              <tr>
+              <td>
  
               {user.username}
-
-                {/* <a href={`/deleteThisUser`} id='link'> */}
-           
-                {/* </a> */}
               </td>
+              
+            
               <td id="role">
               {role}
            
               </td>
-           
-            </tr>
-            <td id="action_row1">
-              <tr>
+              <td id="action_row1">
+              
               <Button onClick={ () =>{
                     setUserToDelete(user.username)
                     setDeleteUsers(true)
@@ -106,21 +86,44 @@ if(deleteUsers){
                     Delete
                 </Button>
 
-              </tr>
-            </td>
-            </tbody>
-            </table>
-            </div>
-          </React.Fragment>
+</td>
+
+</tr>       
+
       }
           </>
         )
         });
     return (
         <div>
+
             <h1>Users</h1>
+            <React.Fragment>
+                <div id="wrapper text-align: center;">
+  <table
+    align="center"
+    cellSpacing="2"
+    cellPadding="5"
+    id="data_table"
+    border="1"
+    className='table'
+  >
+    <tbody>
+<tr>
+    <th>Username</th>
+    <th>Role</th>
+    <th>Action</th>
+    </tr>
+
             {displayUsers}
            {/* {localStorage.setItem("user", document.getElementById("link"))} */}
+        
+            
+           
+            </tbody>
+            </table>
+            </div>
+            </React.Fragment>
         </div>
     );
 }
